@@ -1,0 +1,36 @@
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: lawn
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+      POSTGRES_DB: lawn
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U lawn -d lawn"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  app:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql+psycopg://lawn:${POSTGRES_PASSWORD}@db:5432/lawn
+      APP_PASSWORD: ${APP_PASSWORD:?set APP_PASSWORD in .env}
+      SECRET_KEY: ${SECRET_KEY:?set SECRET_KEY in .env}
+      COOKIE_SECURE: ${COOKIE_SECURE:-true}
+      TIMEZONE: ${TIMEZONE:-America/Chicago}
+      BUSINESS_NAME: ${BUSINESS_NAME:-My Lawn Care}
+      BASE_ADDRESS: ${BASE_ADDRESS:-1213 Arbor Ln, Pacific, MO 63069}
+    # Bound to this machine only. Tailscale Serve is what exposes it, over HTTPS, to your tailnet.
+    ports:
+      - "127.0.0.1:8000:8000"
+
+volumes:
+  pgdata:

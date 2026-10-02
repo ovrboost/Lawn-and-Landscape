@@ -1,0 +1,61 @@
+:root {
+  --bg: #f4f7f2; --card: #ffffff; --ink: #1b2a1f; --muted: #5d6f61; --line: #d5ddd2;
+  --accent: #2f6b3a; --accent-ink: #ffffff; --bad: #b3261e; --warn: #8a5a00; --good: #1f6b34;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #121a14; --card: #1b261d; --ink: #e6efe6; --muted: #9bb09f; --line: #2d3d30;
+    --accent: #5fae6e; --accent-ink: #0c1a10; --bad: #ff8a80; --warn: #f2c261; --good: #7fd18e;
+  }
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--bg); color: var(--ink);
+  font: 16px/1.4 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+h1 { font-size: 1.4rem; margin: 0.4rem 0; }
+h2 { font-size: 1.05rem; margin: 1rem 0 0.4rem; }
+.shell { min-height: 100dvh; display: flex; flex-direction: column; }
+.top { padding: 0.8rem 16px; padding-top: calc(0.8rem + env(safe-area-inset-top)); background: var(--accent); color: var(--accent-ink); }
+.page { flex: 1; width: 100%; max-width: 640px; margin: 0 auto; padding: 12px 16px 96px; display: flex; flex-direction: column; gap: 10px; }
+.tabs { position: fixed; bottom: 0; left: 0; right: 0; display: flex; background: var(--card); border-top: 1px solid var(--line);
+  padding-bottom: env(safe-area-inset-bottom); }
+.tabs a { flex: 1; text-align: center; padding: 14px 4px; color: var(--muted); text-decoration: none; font-weight: 600; }
+.tabs a.active { color: var(--accent); box-shadow: inset 0 3px 0 var(--accent); }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px; display: flex; flex-direction: column; gap: 10px; }
+.card.ok { border-color: var(--good); }
+label { display: flex; flex-direction: column; gap: 4px; font-size: 0.9rem; color: var(--muted); }
+label.check { flex-direction: row; align-items: center; gap: 8px; color: var(--ink); }
+input, select, textarea, button, .btn { font: inherit; }
+input:not([type=checkbox]), select, textarea { width: 100%; padding: 11px 12px; border: 1px solid var(--line); border-radius: 10px;
+  background: var(--bg); color: var(--ink); min-height: 44px; }
+input:focus, select:focus, textarea:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+input[type=checkbox] { width: 20px; height: 20px; }
+button, .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 16px; border-radius: 10px;
+  border: 1px solid var(--line); background: var(--card); color: var(--ink); text-decoration: none; cursor: pointer; font-weight: 600; }
+button.primary, .btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+button.wide { width: 100%; }
+button:disabled { opacity: 0.5; cursor: default; }
+button.link { background: none; border: none; min-height: 36px; padding: 0 4px; color: var(--accent); }
+.danger { color: var(--bad) !important; }
+.row { display: flex; gap: 8px; align-items: center; }
+.between { justify-content: space-between; }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.muted { color: var(--muted); }
+.small { font-size: 0.85rem; }
+.error { color: var(--bad); margin: 0; }
+.warn { color: var(--warn); }
+.okmsg { color: var(--good); margin: 0; }
+.center { min-height: 100dvh; display: grid; place-items: center; }
+.login { max-width: 360px; margin: 12vh auto 0; align-items: stretch; width: calc(100% - 32px); text-align: center; }
+.login img { margin: 0 auto; border-radius: 14px; }
+.login label { text-align: left; }
+.list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.list li { background: var(--card); border: 1px solid var(--line); border-radius: 12px; }
+.list li > a { display: block; padding: 12px 14px; color: inherit; text-decoration: none; }
+.list li.imp { padding: 12px 14px; }
+.list li.imp.error { border-color: var(--bad); }
+.chip { font-size: 0.75rem; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); font-weight: 600; white-space: nowrap; }
+.chip.new, .chip.new_property, .chip.ok { color: var(--good); border-color: var(--good); }
+.chip.error { color: var(--bad); border-color: var(--bad); }
+.counts { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 0.9rem; color: var(--muted); }
+.counts .bad { color: var(--bad); font-weight: 700; }
+.btn.file { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
